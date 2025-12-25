@@ -1,0 +1,49 @@
+.app {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.site-header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.site-header h1 {
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+.site-header nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.site-header button {
+  padding: 8px 15px;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.site-header button:hover {
+  background-color: #764ba2;
+}
+
+.site-content {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}

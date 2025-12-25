@@ -1,0 +1,276 @@
+#!/usr/bin/env node
+
+# 🚀 MCV MOCK PHARMACY ECOSYSTEM - QUICK START GUIDE
+
+## 30-Second Setup
+
+### Option A: Automatic (Windows)
+```bash
+cd c:\Users\User\OneDrive\Desktop\Hack-The-Winter\mock-ecosystem
+start-all.bat
+```
+✅ Opens 3 terminals and starts all servers!
+
+### Option B: Manual (3 Separate Terminals)
+
+**Terminal 1 - Start Site A (Premium Pharmacy):**
+```bash
+cd c:\Users\User\OneDrive\Desktop\Hack-The-Winter\mock-ecosystem\site-a
+npm start
+```
+🏥 Listen for: "Site A running on http://localhost:3001"
+
+**Terminal 2 - Start Site B (Budget Pharmacy):**
+```bash
+cd c:\Users\User\OneDrive\Desktop\Hack-The-Winter\mock-ecosystem\site-b
+npm start
+```
+💰 Listen for: "Site B running on http://localhost:3002"
+
+**Terminal 3 - Start MCV Server:**
+```bash
+cd c:\Users\User\OneDrive\Desktop\Hack-The-Winter\mock-ecosystem
+npm start
+```
+🎯 Listen for: "MCV Server running on http://localhost:3000"
+
+---
+
+## ✅ Verify Everything is Running
+
+```bash
+# Test all 3 servers
+curl http://localhost:3000/health
+curl http://localhost:3001/health
+curl http://localhost:3002/health
+```
+
+**Expected Output (for each):**
+```json
+{
+  "status": "alive",
+  "site": "...",
+  "port": 3000/3001/3002,
+  "timestamp": "..."
+}
+```
+
+---
+
+## 🎯 Your First Tests
+
+### Test 1: Get All Medicines from Site A
+```bash
+curl http://localhost:3001/api/medicines
+```
+
+### Test 2: Compare Prices
+```bash
+curl -X POST http://localhost:3000/api/mcv/compare-prices \
+  -H "Content-Type: application/json" \
+  -d '{"medicineNames":["Aspirin 500mg"]}'
+```
+
+### Test 3: Get Sample Prescription
+```bash
+curl http://localhost:3000/api/mcv/test-prescription
+```
+
+### Test 4: Process Prescription (Semi-Auto)
+```bash
+curl -X POST http://localhost:3000/api/mcv/process-prescription \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prescription":{
+      "prescriptionId":"RX-001",
+      "medicines":[{"name":"Aspirin 500mg","quantity":10}]
+    },
+    "userEmail":"test@example.com",
+    "address":"123 Main St",
+    "autoApprove":false
+  }'
+```
+
+---
+
+## 📞 Port Reference
+
+| Server | Port | URL |
+|--------|------|-----|
+| MCV Orchestrator | 3000 | http://localhost:3000 |
+| Site A (Premium) | 3001 | http://localhost:3001 |
+| Site B (Budget) | 3002 | http://localhost:3002 |
+
+---
+
+## 📁 Key Files
+
+| What | Where |
+|------|-------|
+| Start everything | `start-all.bat` |
+| Main MCV server | `server.js` |
+| Site A server | `site-a/server.js` |
+| Site B server | `site-b/server.js` |
+| Documentation index | `INDEX.md` |
+| API reference | `API_REFERENCE.md` |
+| Test examples | `EXAMPLE_REQUESTS.md` |
+
+---
+
+## 💡 Common Tasks
+
+### "I want to see all medicines at Site A"
+```bash
+curl http://localhost:3001/api/medicines
+```
+
+### "I want to search for Aspirin"
+```bash
+curl http://localhost:3001/api/medicines/search/Aspirin
+```
+
+### "I want to compare prices across both sites"
+```bash
+curl -X POST http://localhost:3000/api/mcv/compare-prices \
+  -H "Content-Type: application/json" \
+  -d '{"medicineNames":["Aspirin 500mg","Paracetamol 500mg"]}'
+```
+
+### "I want to place an order automatically"
+```bash
+curl -X POST http://localhost:3000/api/mcv/process-prescription \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prescription":{"medicines":[{"name":"Aspirin 500mg","quantity":10}]},
+    "userEmail":"user@example.com",
+    "address":"123 Main St",
+    "autoApprove":true,
+    "preferredSite":"B"
+  }'
+```
+
+### "I want to track an order"
+Replace `SITE-A-123456789` with actual order ID from response:
+```bash
+curl http://localhost:3000/api/mcv/track-order/SITE-A-123456789/A
+```
+
+---
+
+## 🆘 Troubleshooting
+
+### "Port 3000 is already in use"
+1. Change the PORT in `server.js` (around line 5)
+2. Restart the server
+
+### "npm command not found"
+1. Install Node.js from https://nodejs.org
+2. Restart terminal
+
+### "Cannot find module"
+1. Run `npm install` in the main directory
+2. Run `npm install` in site-a directory
+3. Run `npm install` in site-b directory
+
+### "Connection refused"
+1. Make sure all 3 servers are running
+2. Check correct ports (3000, 3001, 3002)
+3. Wait a few seconds after starting
+
+---
+
+## 📚 Learn More
+
+| Want to | Read |
+|---------|------|
+| Understand everything | README.md |
+| See all endpoints | API_REFERENCE.md |
+| Copy-paste commands | EXAMPLE_REQUESTS.md |
+| Run test scenarios | TESTING_GUIDE.md |
+| See architecture | ARCHITECTURE.md |
+| Navigate docs | INDEX.md |
+
+---
+
+## 🎯 Workflow Overview
+
+```
+1. Start Servers
+   ↓
+2. Verify with Health Check
+   ↓
+3. Browse Medicines
+   ↓
+4. Compare Prices
+   ↓
+5. Get Sample Prescription
+   ↓
+6. Process Prescription
+   ↓
+7. Approve Order (if semi-auto)
+   ↓
+8. Track Order
+   ↓
+9. Celebrate! 🎉
+```
+
+---
+
+## ⚡ Quick Reference
+
+```bash
+# Startup
+start-all.bat          # Start all servers
+
+# Verify
+curl http://localhost:3000/health
+curl http://localhost:3001/health
+curl http://localhost:3002/health
+
+# Browse
+curl http://localhost:3001/api/medicines
+
+# Compare
+curl -X POST http://localhost:3000/api/mcv/compare-prices \
+  -H "Content-Type: application/json" \
+  -d '{"medicineNames":["Aspirin 500mg"]}'
+
+# Sample Prescription
+curl http://localhost:3000/api/mcv/test-prescription
+
+# Process (Auto)
+curl -X POST http://localhost:3000/api/mcv/process-prescription \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prescription":{"medicines":[{"name":"Aspirin 500mg","quantity":10}]},
+    "userEmail":"user@example.com",
+    "address":"123 Main St",
+    "autoApprove":true
+  }'
+
+# Track
+curl http://localhost:3000/api/mcv/track-order/SITE-A-[ID]/A
+```
+
+---
+
+## 🎉 You're Ready!
+
+Everything is installed and ready to go. 
+
+### Next: Start the servers and test! 🚀
+
+```bash
+start-all.bat
+```
+
+Then open your browser or terminal and test with:
+```bash
+curl http://localhost:3000/health
+```
+
+---
+
+**Happy Testing!** 🎊
+
+For more help, see INDEX.md or README.md

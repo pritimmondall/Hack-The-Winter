@@ -1,0 +1,285 @@
+.home-page {
+  text-align: center;
+}
+
+.hero {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: white;
+  padding: 50px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.hero h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  padding: 12px 30px;
+  background-color: white;
+  color: #f39c12;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.feature {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #f39c12;
+}
+
+.medicine-list-page {
+  text-align: center;
+}
+
+.medicines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.medicine-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.medicine-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.medicine-card h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 22px;
+  color: #f39c12;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.delivery {
+  color: #c0392b;
+}
+
+.rating {
+  color: #16a085;
+  font-size: 16px;
+}
+
+.view-btn {
+  padding: 8px 15px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.view-btn:hover {
+  background-color: #e67e22;
+}
+
+.medicine-detail-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.detail-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.medicine-info p {
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+.quantity-selector {
+  margin: 20px 0;
+}
+
+.quantity-selector select {
+  padding: 8px;
+  margin-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e67e22;
+}
+
+.cart-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.cart-table th, .cart-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-table th {
+  background-color: #f39c12;
+  color: white;
+}
+
+.remove-btn {
+  padding: 5px 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #c0392b;
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  padding: 12px 30px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.checkout-btn:hover {
+  background-color: #e67e22;
+}
+
+.checkout-page {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.order-confirmation {
+  background-color: #fdeee9;
+  padding: 30px;
+  border-radius: 8px;
+  border-left: 4px solid #f39c12;
+}
+
+.order-item {
+  padding: 10px;
+  text-align: left;
+  background-color: white;
+  margin: 5px 0;
+  border-radius: 3px;
+}
+
+.back-btn, .confirm-btn {
+  padding: 10px 20px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.back-btn:hover, .confirm-btn:hover {
+  background-color: #e67e22;
+}
+
+.prescription-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.upload-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.file-input {
+  display: block;
+  margin: 20px 0;
+  padding: 10px;
+}
+
+.upload-btn {
+  padding: 10px 20px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #e67e22;
+}
+
+.status {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fdeee9;
+  color: #f39c12;
+  border-radius: 5px;
+}
