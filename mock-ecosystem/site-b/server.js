@@ -830,6 +830,36 @@ app.get('/order/:orderId', (req, res) => {
   res.render('order', { order, siteName: 'Apollo Pharmacy' });
 });
 
+// ==================== VIEW ROUTES ====================
+
+// ... (Your existing Home Page route is here) ...
+
+// --- ADD THIS NEW ROUTE FOR THE BOT ---
+app.get('/search', (req, res) => {
+  const query = req.query.q ? req.query.q.toLowerCase() : '';
+  
+  // Logic: Search the detailed 'medicines' array
+  const foundMedicine = medicines.find(m => 
+    m.name.toLowerCase().includes(query) || 
+    m.genericName.toLowerCase().includes(query) ||
+    m.brand.toLowerCase().includes(query)
+  );
+
+  // Render the 'product' view
+  // We pass 'medicine' (for the full page) and 'data' (in case your previous simple EJS used that)
+  res.render('product', { 
+    medicine: foundMedicine, 
+    // Map data for backward compatibility if your EJS uses 'data.price'
+    data: foundMedicine, 
+    name: foundMedicine ? foundMedicine.name : query,
+    siteName: 'Tata 1mg',
+    relatedProducts: [] 
+  });
+});
+
+// ... (Your existing Product, Cart, Checkout routes follow here) ...
+
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🏥 Apollo Pharmacy Mock Server running on http://localhost:${PORT}`);

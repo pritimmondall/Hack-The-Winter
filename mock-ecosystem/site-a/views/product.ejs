@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= medicine.name %> - <%= siteName %></title>
+  <title>
+    <%= medicine ? medicine.name : 'Product Not Found' %> - <%= siteName %>
+  </title>
   <style>
+    /* ... (KEEP YOUR EXISTING CSS EXACTLY AS IS) ... */
+    /* I am hiding the CSS here to save space, but DO NOT DELETE IT from your file */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
       background-color: #f4f4f4;
       color: #333;
     }
-    
-    /* Header */
+
     .header {
       background: linear-gradient(135deg, #ff6f61 0%, #e55a4e 100%);
       color: white;
@@ -25,9 +29,9 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    
+
     .header-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -36,24 +40,24 @@
       align-items: center;
       justify-content: space-between;
     }
-    
+
     .logo {
       font-size: 28px;
       font-weight: bold;
       text-decoration: none;
       color: white;
     }
-    
+
     .logo span {
       color: #ffe4e1;
     }
-    
+
     .search-bar {
       flex: 1;
       max-width: 500px;
       margin: 0 30px;
     }
-    
+
     .search-bar input {
       width: 100%;
       padding: 12px 20px;
@@ -62,13 +66,13 @@
       font-size: 14px;
       outline: none;
     }
-    
+
     .header-actions {
       display: flex;
       align-items: center;
       gap: 20px;
     }
-    
+
     .header-actions a {
       color: white;
       text-decoration: none;
@@ -77,7 +81,7 @@
       align-items: center;
       gap: 5px;
     }
-    
+
     .cart-badge {
       background: white;
       color: #ff6f61;
@@ -86,27 +90,24 @@
       font-size: 12px;
       font-weight: bold;
     }
-    
-    /* Main Content */
+
     .main-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
     }
-    
-    /* Breadcrumb */
+
     .breadcrumb {
       padding: 15px 0;
       font-size: 14px;
       color: #666;
     }
-    
+
     .breadcrumb a {
       color: #ff6f61;
       text-decoration: none;
     }
-    
-    /* Product Section */
+
     .product-container {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
@@ -114,9 +115,9 @@
       background: white;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
     }
-    
+
     .product-image {
       background: #f8f8f8;
       border-radius: 12px;
@@ -126,7 +127,7 @@
       justify-content: center;
       min-height: 400px;
     }
-    
+
     .product-image-placeholder {
       width: 200px;
       height: 200px;
@@ -138,27 +139,27 @@
       color: white;
       font-size: 48px;
     }
-    
+
     .product-details h1 {
       font-size: 28px;
       color: #333;
       margin-bottom: 10px;
     }
-    
+
     .brand-name {
       color: #ff6f61;
       font-size: 16px;
       font-weight: 500;
       margin-bottom: 15px;
     }
-    
+
     .rating {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 20px;
     }
-    
+
     .rating-badge {
       background: #388e3c;
       color: white;
@@ -167,45 +168,45 @@
       font-size: 14px;
       font-weight: bold;
     }
-    
+
     .rating-count {
       color: #666;
       font-size: 14px;
     }
-    
+
     .price-section {
       background: #fff5f4;
       padding: 20px;
       border-radius: 8px;
       margin: 20px 0;
     }
-    
+
     .price {
       font-size: 32px;
       font-weight: bold;
       color: #333;
     }
-    
+
     .mrp {
       color: #999;
       text-decoration: line-through;
       font-size: 18px;
       margin-left: 10px;
     }
-    
+
     .discount {
       color: #388e3c;
       font-size: 16px;
       font-weight: 500;
       margin-left: 10px;
     }
-    
+
     .pack-info {
       color: #666;
       font-size: 14px;
       margin-top: 10px;
     }
-    
+
     .prescription-badge {
       display: inline-block;
       padding: 8px 15px;
@@ -214,25 +215,25 @@
       font-weight: 500;
       margin: 15px 0;
     }
-    
+
     .prescription-required {
       background: #fff3e0;
       color: #e65100;
       border: 1px solid #ffcc80;
     }
-    
+
     .no-prescription {
       background: #e8f5e9;
       color: #2e7d32;
       border: 1px solid #a5d6a7;
     }
-    
+
     .action-buttons {
       display: flex;
       gap: 15px;
       margin: 25px 0;
     }
-    
+
     .btn {
       padding: 15px 40px;
       border: none;
@@ -242,59 +243,58 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    
+
     .btn-primary {
       background: linear-gradient(135deg, #ff6f61 0%, #e55a4e 100%);
       color: white;
     }
-    
+
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 20px rgba(255, 111, 97, 0.4);
     }
-    
+
     .btn-secondary {
       background: white;
       color: #ff6f61;
       border: 2px solid #ff6f61;
     }
-    
+
     .btn-secondary:hover {
       background: #fff5f4;
     }
-    
+
     .delivery-info {
       background: #f5f5f5;
       padding: 15px 20px;
       border-radius: 8px;
       margin: 20px 0;
     }
-    
+
     .delivery-info h4 {
       color: #333;
       margin-bottom: 8px;
     }
-    
+
     .delivery-info p {
       color: #666;
       font-size: 14px;
     }
-    
-    /* Tabs */
+
     .tabs-section {
       margin-top: 40px;
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
     }
-    
+
     .tabs-header {
       display: flex;
       background: #f8f8f8;
       border-bottom: 1px solid #eee;
     }
-    
+
     .tab-btn {
       padding: 15px 30px;
       border: none;
@@ -306,37 +306,37 @@
       border-bottom: 3px solid transparent;
       transition: all 0.3s ease;
     }
-    
+
     .tab-btn.active {
       color: #ff6f61;
       border-bottom-color: #ff6f61;
       background: white;
     }
-    
+
     .tab-content {
       padding: 30px;
     }
-    
+
     .tab-panel {
       display: none;
     }
-    
+
     .tab-panel.active {
       display: block;
     }
-    
+
     .info-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-    
+
     .info-item {
       padding: 15px;
       background: #f8f8f8;
       border-radius: 8px;
     }
-    
+
     .info-item label {
       display: block;
       color: #999;
@@ -344,38 +344,38 @@
       text-transform: uppercase;
       margin-bottom: 5px;
     }
-    
+
     .info-item p {
       color: #333;
       font-size: 15px;
       font-weight: 500;
     }
-    
+
     .dosage-box {
       background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
       padding: 25px;
       border-radius: 12px;
       margin: 20px 0;
     }
-    
+
     .dosage-box h4 {
       color: #1565c0;
       margin-bottom: 15px;
       font-size: 18px;
     }
-    
+
     .dosage-box p {
       color: #333;
       line-height: 1.8;
     }
-    
+
     .side-effects-list {
       list-style: none;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-    
+
     .side-effects-list li {
       padding: 10px 15px;
       background: #fff3e0;
@@ -383,40 +383,39 @@
       color: #e65100;
       font-size: 14px;
     }
-    
+
     .side-effects-list li::before {
       content: "⚠️ ";
     }
-    
-    /* Related Products */
+
     .related-section {
       margin-top: 40px;
     }
-    
+
     .related-section h2 {
       font-size: 24px;
       color: #333;
       margin-bottom: 20px;
     }
-    
+
     .related-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
-    
+
     .product-card {
       background: white;
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease;
     }
-    
+
     .product-card:hover {
       transform: translateY(-5px);
     }
-    
+
     .product-card-image {
       width: 80px;
       height: 80px;
@@ -429,7 +428,7 @@
       color: white;
       font-size: 24px;
     }
-    
+
     .product-card h4 {
       font-size: 14px;
       color: #333;
@@ -437,23 +436,23 @@
       height: 40px;
       overflow: hidden;
     }
-    
+
     .product-card .brand {
       color: #999;
       font-size: 12px;
       margin-bottom: 10px;
     }
-    
+
     .product-card .price {
       font-size: 18px;
       color: #333;
       font-weight: bold;
     }
-    
+
     .product-card .mrp {
       font-size: 13px;
     }
-    
+
     .product-card a {
       display: block;
       text-align: center;
@@ -462,27 +461,25 @@
       text-decoration: none;
       font-weight: 500;
     }
-    
-    /* Footer */
+
     .footer {
       background: #333;
       color: white;
       padding: 40px 20px;
       margin-top: 50px;
     }
-    
+
     .footer-container {
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
-    
+
     .footer p {
       color: #999;
       font-size: 14px;
     }
-    
-    /* Toast notification */
+
     .toast {
       position: fixed;
       bottom: 30px;
@@ -495,35 +492,35 @@
       z-index: 2000;
       animation: slideIn 0.3s ease;
     }
-    
+
     .toast.success {
       background: #388e3c;
     }
-    
+
     @keyframes slideIn {
       from {
         transform: translateX(100px);
         opacity: 0;
       }
+
       to {
         transform: translateX(0);
         opacity: 1;
       }
     }
-    
-    /* Quantity selector */
+
     .quantity-selector {
       display: flex;
       align-items: center;
       gap: 15px;
       margin: 20px 0;
     }
-    
+
     .quantity-selector label {
       font-weight: 500;
       color: #333;
     }
-    
+
     .qty-controls {
       display: flex;
       align-items: center;
@@ -531,7 +528,7 @@
       border-radius: 8px;
       overflow: hidden;
     }
-    
+
     .qty-btn {
       width: 40px;
       height: 40px;
@@ -541,11 +538,11 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-    
+
     .qty-btn:hover {
       background: #eee;
     }
-    
+
     .qty-input {
       width: 60px;
       height: 40px;
@@ -554,49 +551,49 @@
       font-size: 16px;
       font-weight: 500;
     }
-    
+
     .stock-status {
       display: flex;
       align-items: center;
       gap: 8px;
       margin: 15px 0;
     }
-    
+
     .stock-dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
     }
-    
+
     .stock-dot.in-stock {
       background: #388e3c;
     }
-    
+
     .stock-dot.out-of-stock {
       background: #d32f2f;
     }
-    
+
     @media (max-width: 768px) {
       .product-container {
         grid-template-columns: 1fr;
       }
-      
+
       .related-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-      
+
       .info-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .side-effects-list {
         grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
+
 <body>
-  <!-- Header -->
   <header class="header">
     <div class="header-container">
       <a href="/" class="logo">TATA <span>1mg</span></a>
@@ -610,174 +607,225 @@
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="main-container">
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-      <a href="/">Home</a> / <a href="/?category=<%= medicine.category %>"><%= medicine.category %></a> / <%= medicine.name %>
-    </div>
-
-    <!-- Product Section -->
-    <div class="product-container">
-      <div class="product-image">
-        <div class="product-image-placeholder">💊</div>
+    <% if (medicine) { %>
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/?category=<%= medicine.category %>">
+          <%= medicine.category %>
+        </a> / <%= medicine.name %>
       </div>
-      
-      <div class="product-details">
-        <h1><%= medicine.name %></h1>
-        <p class="brand-name">by <%= medicine.brand %> | <%= medicine.manufacturer %></p>
-        
-        <div class="rating">
-          <span class="rating-badge">⭐ <%= medicine.rating %></span>
-          <span class="rating-count"><%= medicine.reviews.toLocaleString() %> ratings</span>
+
+      <div class="product-container">
+        <div class="product-image">
+          <div class="product-image-placeholder">💊</div>
         </div>
-        
-        <div class="price-section">
-          <span class="price">₹<%= medicine.price.toFixed(2) %></span>
-          <span class="mrp">₹<%= medicine.mrp.toFixed(2) %></span>
-          <span class="discount"><%= medicine.discount %>% OFF</span>
-          <p class="pack-info">Pack of <%= medicine.quantity %> <%= medicine.unit %></p>
+
+        <div class="product-details">
+
+          <h1 id="med-name">
+            <%= medicine.name %>
+          </h1>
+          <p class="brand-name">by <%= medicine.brand %> | <%= medicine.manufacturer %>
+          </p>
+
+          <div class="rating">
+            <span class="rating-badge">⭐ <%= medicine.rating %></span>
+            <span class="rating-count">
+              <%= medicine.reviews.toLocaleString() %> ratings
+            </span>
+          </div>
+
+          <div class="price-section">
+            <span class="price">₹<span id="med-price">
+                <%= medicine.price.toFixed(2) %>
+              </span></span>
+            <span class="mrp">₹<%= medicine.mrp.toFixed(2) %></span>
+            <span class="discount">
+              <%= medicine.discount %>% OFF
+            </span>
+            <p class="pack-info">Pack of <%= medicine.quantity %>
+                <%= medicine.unit %>
+            </p>
+          </div>
+
+          <% if (medicine.prescriptionRequired) { %>
+            <span class="prescription-badge prescription-required">📋 Prescription Required</span>
+            <% } else { %>
+              <span class="prescription-badge no-prescription">✓ No Prescription Needed</span>
+              <% } %>
+
+                <div class="stock-status">
+                  <span class="stock-dot <%= medicine.inStock ? 'in-stock' : 'out-of-stock' %>"></span>
+                  <span>
+                    <%= medicine.inStock ? 'In Stock' : 'Out of Stock' %> (<%= medicine.stockCount %> available)
+                  </span>
+                </div>
+
+                <div class="quantity-selector">
+                  <label>Quantity:</label>
+                  <div class="qty-controls">
+                    <button class="qty-btn" onclick="updateQty(-1)">−</button>
+                    <input type="number" class="qty-input" id="quantity" value="1" min="1" max="10">
+                    <button class="qty-btn" onclick="updateQty(1)">+</button>
+                  </div>
+                </div>
+
+                <div class="action-buttons">
+                  <button id="add-to-cart" class="btn btn-primary" onclick="addToCart('<%= medicine.id %>')"
+                    <%=!medicine.inStock ? 'disabled' : '' %>>
+                    🛒 Add to Cart
+                  </button>
+                  <button class="btn btn-secondary" onclick="buyNow('<%= medicine.id %>')">
+                    ⚡ Buy Now
+                  </button>
+                </div>
+
+                <div class="delivery-info">
+                  <h4>🚚 Delivery Information</h4>
+                  <p>Estimated delivery: <%= medicine.deliveryTime %>
+                  </p>
+                  <p>Free delivery on orders above ₹500</p>
+                </div>
         </div>
-        
-        <% if (medicine.prescriptionRequired) { %>
-          <span class="prescription-badge prescription-required">📋 Prescription Required</span>
-        <% } else { %>
-          <span class="prescription-badge no-prescription">✓ No Prescription Needed</span>
+      </div>
+
+      <div class="tabs-section">
+        <div class="tabs-header">
+          <button class="tab-btn active" onclick="showTab('description')">Description</button>
+          <button class="tab-btn" onclick="showTab('dosage')">Dosage</button>
+          <button class="tab-btn" onclick="showTab('sideeffects')">Side Effects</button>
+          <button class="tab-btn" onclick="showTab('storage')">Storage</button>
+        </div>
+
+        <div class="tab-content">
+          <div id="description" class="tab-panel active">
+            <h3>About <%= medicine.name %>
+            </h3>
+            <p style="margin: 15px 0; line-height: 1.8;">
+              <%= medicine.description %>
+            </p>
+
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Generic Name</label>
+                <p>
+                  <%= medicine.genericName %>
+                </p>
+              </div>
+              <div class="info-item">
+                <label>Composition</label>
+                <p>
+                  <%= medicine.composition %>
+                </p>
+              </div>
+              <div class="info-item">
+                <label>Category</label>
+                <p>
+                  <%= medicine.category %>
+                </p>
+              </div>
+              <div class="info-item">
+                <label>Manufacturer</label>
+                <p>
+                  <%= medicine.manufacturer %>
+                </p>
+              </div>
+              <div class="info-item">
+                <label>Expiry Date</label>
+                <p>
+                  <%= new Date(medicine.expiryDate).toLocaleDateString('en-IN', { month: 'long' , year: 'numeric' }) %>
+                </p>
+              </div>
+              <div class="info-item">
+                <label>Prescription</label>
+                <p>
+                  <%= medicine.prescriptionRequired ? 'Required' : 'Not Required' %>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="dosage" class="tab-panel">
+            <h3>Dosage Instructions</h3>
+            <div class="dosage-box">
+              <h4>📋 How to Take <%= medicine.name %>
+              </h4>
+              <p>
+                <%= medicine.dosageInstructions %>
+              </p>
+            </div>
+            <p style="margin-top: 15px; color: #666;">
+              <strong>Important:</strong> Always follow your doctor's prescription or the instructions on the medicine
+              label.
+              Do not self-medicate. Consult your healthcare provider before starting any new medication.
+            </p>
+          </div>
+
+          <div id="sideeffects" class="tab-panel">
+            <h3>Possible Side Effects</h3>
+            <p style="margin: 15px 0; color: #666;">The following side effects may occur. If any of these symptoms
+              persist or worsen, consult your doctor immediately.</p>
+            <ul class="side-effects-list">
+              <% medicine.sideEffects.forEach(effect=> { %>
+                <li>
+                  <%= effect %>
+                </li>
+                <% }); %>
+            </ul>
+            <p style="margin-top: 20px; padding: 15px; background: #ffebee; border-radius: 8px; color: #c62828;">
+              ⚠️ <strong>Emergency:</strong> If you experience severe allergic reactions (difficulty breathing, swelling
+              of face/throat), seek immediate medical attention.
+            </p>
+          </div>
+
+          <div id="storage" class="tab-panel">
+            <h3>Storage Instructions</h3>
+            <div style="padding: 20px; background: #f5f5f5; border-radius: 8px;">
+              <p style="font-size: 16px;">
+                <%= medicine.storageInstructions %>
+              </p>
+            </div>
+            <ul style="margin-top: 20px; line-height: 2; color: #666;">
+              <li>Keep out of reach of children</li>
+              <li>Do not use after the expiry date</li>
+              <li>Store in original packaging</li>
+              <li>Do not refrigerate unless specified</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <% if (relatedProducts && relatedProducts.length> 0) { %>
+        <section class="related-section">
+          <h2>Related Products</h2>
+          <div class="related-grid">
+            <% relatedProducts.forEach(product=> { %>
+              <div class="product-card">
+                <div class="product-card-image">💊</div>
+                <h4>
+                  <%= product.name %>
+                </h4>
+                <p class="brand">
+                  <%= product.brand %>
+                </p>
+                <p class="price">₹<%= product.price.toFixed(2) %> <span class="mrp">₹<%= product.mrp.toFixed(2) %>
+                        </span></p>
+                <a href="/product/<%= product.id %>">View Details →</a>
+              </div>
+              <% }); %>
+          </div>
+        </section>
         <% } %>
-        
-        <div class="stock-status">
-          <span class="stock-dot <%= medicine.inStock ? 'in-stock' : 'out-of-stock' %>"></span>
-          <span><%= medicine.inStock ? 'In Stock' : 'Out of Stock' %> (<%= medicine.stockCount %> available)</span>
-        </div>
-        
-        <div class="quantity-selector">
-          <label>Quantity:</label>
-          <div class="qty-controls">
-            <button class="qty-btn" onclick="updateQty(-1)">−</button>
-            <input type="number" class="qty-input" id="quantity" value="1" min="1" max="10">
-            <button class="qty-btn" onclick="updateQty(1)">+</button>
-          </div>
-        </div>
-        
-        <div class="action-buttons">
-          <button class="btn btn-primary" onclick="addToCart('<%= medicine.id %>')" <%= !medicine.inStock ? 'disabled' : '' %>>
-            🛒 Add to Cart
-          </button>
-          <button class="btn btn-secondary" onclick="buyNow('<%= medicine.id %>')">
-            ⚡ Buy Now
-          </button>
-        </div>
-        
-        <div class="delivery-info">
-          <h4>🚚 Delivery Information</h4>
-          <p>Estimated delivery: <%= medicine.deliveryTime %></p>
-          <p>Free delivery on orders above ₹500</p>
-        </div>
-      </div>
-    </div>
 
-    <!-- Tabs Section -->
-    <div class="tabs-section">
-      <div class="tabs-header">
-        <button class="tab-btn active" onclick="showTab('description')">Description</button>
-        <button class="tab-btn" onclick="showTab('dosage')">Dosage</button>
-        <button class="tab-btn" onclick="showTab('sideeffects')">Side Effects</button>
-        <button class="tab-btn" onclick="showTab('storage')">Storage</button>
-      </div>
-      
-      <div class="tab-content">
-        <div id="description" class="tab-panel active">
-          <h3>About <%= medicine.name %></h3>
-          <p style="margin: 15px 0; line-height: 1.8;"><%= medicine.description %></p>
-          
-          <div class="info-grid">
-            <div class="info-item">
-              <label>Generic Name</label>
-              <p><%= medicine.genericName %></p>
+          <% } else { %>
+            <div style="text-align: center; padding: 50px;">
+              <h1>😕 Medicine Not Found</h1>
+              <p>We couldn't find the medicine you were looking for.</p>
+              <a href="/" class="btn btn-primary" style="margin-top: 20px; display: inline-block;">Go Back Home</a>
             </div>
-            <div class="info-item">
-              <label>Composition</label>
-              <p><%= medicine.composition %></p>
-            </div>
-            <div class="info-item">
-              <label>Category</label>
-              <p><%= medicine.category %></p>
-            </div>
-            <div class="info-item">
-              <label>Manufacturer</label>
-              <p><%= medicine.manufacturer %></p>
-            </div>
-            <div class="info-item">
-              <label>Expiry Date</label>
-              <p><%= new Date(medicine.expiryDate).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' }) %></p>
-            </div>
-            <div class="info-item">
-              <label>Prescription</label>
-              <p><%= medicine.prescriptionRequired ? 'Required' : 'Not Required' %></p>
-            </div>
-          </div>
-        </div>
-        
-        <div id="dosage" class="tab-panel">
-          <h3>Dosage Instructions</h3>
-          <div class="dosage-box">
-            <h4>📋 How to Take <%= medicine.name %></h4>
-            <p><%= medicine.dosageInstructions %></p>
-          </div>
-          <p style="margin-top: 15px; color: #666;">
-            <strong>Important:</strong> Always follow your doctor's prescription or the instructions on the medicine label. 
-            Do not self-medicate. Consult your healthcare provider before starting any new medication.
-          </p>
-        </div>
-        
-        <div id="sideeffects" class="tab-panel">
-          <h3>Possible Side Effects</h3>
-          <p style="margin: 15px 0; color: #666;">The following side effects may occur. If any of these symptoms persist or worsen, consult your doctor immediately.</p>
-          <ul class="side-effects-list">
-            <% medicine.sideEffects.forEach(effect => { %>
-              <li><%= effect %></li>
-            <% }); %>
-          </ul>
-          <p style="margin-top: 20px; padding: 15px; background: #ffebee; border-radius: 8px; color: #c62828;">
-            ⚠️ <strong>Emergency:</strong> If you experience severe allergic reactions (difficulty breathing, swelling of face/throat), seek immediate medical attention.
-          </p>
-        </div>
-        
-        <div id="storage" class="tab-panel">
-          <h3>Storage Instructions</h3>
-          <div style="padding: 20px; background: #f5f5f5; border-radius: 8px;">
-            <p style="font-size: 16px;"><%= medicine.storageInstructions %></p>
-          </div>
-          <ul style="margin-top: 20px; line-height: 2; color: #666;">
-            <li>Keep out of reach of children</li>
-            <li>Do not use after the expiry date</li>
-            <li>Store in original packaging</li>
-            <li>Do not refrigerate unless specified</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Related Products -->
-    <% if (relatedProducts.length > 0) { %>
-    <section class="related-section">
-      <h2>Related Products</h2>
-      <div class="related-grid">
-        <% relatedProducts.forEach(product => { %>
-          <div class="product-card">
-            <div class="product-card-image">💊</div>
-            <h4><%= product.name %></h4>
-            <p class="brand"><%= product.brand %></p>
-            <p class="price">₹<%= product.price.toFixed(2) %> <span class="mrp">₹<%= product.mrp.toFixed(2) %></span></p>
-            <a href="/product/<%= product.id %>">View Details →</a>
-          </div>
-        <% }); %>
-      </div>
-    </section>
-    <% } %>
+            <% } %>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
       <p>© 2025 Tata 1mg Mock - For Testing Purposes Only</p>
@@ -785,21 +833,23 @@
     </div>
   </footer>
 
-  <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
   <script>
-    const medicineId = '<%= medicine.id %>';
-    const userId = 'user123';
+    // SAFETY CHECK: Only define these if medicine exists
+    const medicineId = "<%= medicine ? medicine.id : '' %>";
     
+    const userId = 'user123';
+
     function updateQty(change) {
       const input = document.getElementById('quantity');
+      if (!input) return;
       let value = parseInt(input.value) + change;
       if (value < 1) value = 1;
       if (value > 10) value = 10;
       input.value = value;
     }
-    
+
     function showToast(message, type = 'success') {
       const toast = document.getElementById('toast');
       toast.textContent = message;
@@ -809,18 +859,21 @@
         toast.style.display = 'none';
       }, 3000);
     }
-    
+
     function showTab(tabId) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-      
+
       event.target.classList.add('active');
-      document.getElementById(tabId).classList.add('active');
+      const tab = document.getElementById(tabId);
+      if (tab) tab.classList.add('active');
     }
-    
+
     async function addToCart(medicineId) {
-      const quantity = parseInt(document.getElementById('quantity').value);
-      
+      if (!medicineId) return;
+      const quantityInput = document.getElementById('quantity');
+      const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+
       try {
         const response = await fetch(`/api/cart/${userId}/add`, {
           method: 'POST',
@@ -829,12 +882,13 @@
           },
           body: JSON.stringify({ medicineId, quantity })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
           showToast('Added to cart successfully!', 'success');
-          document.getElementById('cartCount').textContent = data.data.itemCount;
+          const cartCount = document.getElementById('cartCount');
+          if (cartCount) cartCount.textContent = data.data.itemCount;
         } else {
           showToast(data.error || 'Failed to add to cart', 'error');
         }
@@ -842,26 +896,28 @@
         showToast('Error adding to cart', 'error');
       }
     }
-    
+
     async function buyNow(medicineId) {
       await addToCart(medicineId);
       window.location.href = '/checkout?userId=' + userId;
     }
-    
+
     // Load cart count on page load
     async function loadCartCount() {
       try {
         const response = await fetch(`/api/cart/${userId}`);
         const data = await response.json();
         if (data.success) {
-          document.getElementById('cartCount').textContent = data.data.itemCount || 0;
+          const cartCount = document.getElementById('cartCount');
+          if (cartCount) cartCount.textContent = data.data.itemCount || 0;
         }
       } catch (error) {
         console.error('Error loading cart count');
       }
     }
-    
+
     loadCartCount();
   </script>
 </body>
+
 </html>
