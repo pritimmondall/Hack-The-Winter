@@ -19,32 +19,32 @@
     6. Calendar Integration: If a follow-up date is detected, an event is automatically created in the user's Google Calendar.
 
 ### 2. System Architecture
-
-graph TD
-    User[User / Frontend] -->|Upload Prescription| API[FastAPI Backend]
-    API -->|Extract Text| OCR[EasyOCR Engine]
-    OCR -->|Raw Text| LLM[Google Gemini AI]
-    LLM -->|Structured JSON| Agent[Autonomous Bot Agent]
-    subgraph "Agentic Workflow"
-        Agent -->|Scrape Prices| SiteA[Pharmacy A]
-        Agent -->|Scrape Prices| SiteB[Pharmacy B]
-        Agent -->|Compare & Decide| Logic{Priority?}
-        Logic -->|Price/Time| Buy[Auto-Buy & Checkout]
-    end
-    LLM -->|Extract Dates| Calendar[Google Calendar API]
-    Buy -->|Order Confirmation| DB[(Database / Logs)]
-    Calendar -->|Create Event| GCal[User Calendar]
+    ```mermaid
+    graph TD
+        User[User / Frontend] -->|Upload Prescription| API[FastAPI Backend]
+        API -->|Extract Text| OCR[EasyOCR Engine]
+        OCR -->|Raw Text| LLM[Google Gemini AI]
+        LLM -->|Structured JSON| Agent[Autonomous Bot Agent]
+        subgraph "Agentic Workflow"
+            Agent -->|Scrape Prices| SiteA[Pharmacy A]
+            Agent -->|Scrape Prices| SiteB[Pharmacy B]
+            Agent -->|Compare & Decide| Logic{Priority?}
+            Logic -->|Price/Time| Buy[Auto-Buy & Checkout]
+        end
+        LLM -->|Extract Dates| Calendar[Google Calendar API]
+        Buy -->|Order Confirmation| DB[(Database / Logs)]
+        Calendar -->|Create Event| GCal[User Calendar]
 
 
 ### 3. Data Flow Diagram
 
-sequenceDiagram
-    participant User
-    participant Server as MCP Server (FastAPI)
-    participant AI as Gemini + OCR
-    participant Bot as Selenium Agent
-    participant Site as Pharmacy Sites
-    participant GCal as Google Calendar
+    sequenceDiagram
+        participant User
+        participant Server as MCP Server (FastAPI)
+        participant AI as Gemini + OCR
+        participant Bot as Selenium Agent
+        participant Site as Pharmacy Sites
+        participant GCal as Google Calendar
 
     User->>Server: Upload Image + Priority (Price/Speed)
     Server->>AI: Send Image for Analysis
@@ -64,21 +64,21 @@ sequenceDiagram
 
 ### 4. Agent Decision Logic
 
-flowchart LR
-    Start([Start]) --> Input[Receive Medicine List]
-    Input --> CheckPriority{User Priority?}
-    CheckPriority -- "Price" --> SortPrice[Sort by Price]
-    CheckPriority -- "Delivery" --> SortTime[Sort by Delivery Time]
-    SortPrice --> TieBreaker1{Same Price?}
-    TieBreaker1 -- Yes --> SelectFastest[Select Fastest Delivery]
-    TieBreaker1 -- No --> SelectCheapest[Select Cheapest]
-    SortTime --> TieBreaker2{Same Time?}
-    TieBreaker2 -- Yes --> SelectCheapest2[Select Cheapest]
-    TieBreaker2 -- No --> SelectFastest2[Select Fastest]
-    SelectCheapest --> Buy[Execute Purchase]
-    SelectFastest --> Buy
-    SelectCheapest2 --> Buy
-    SelectFastest2 --> Buy
+    flowchart LR
+        Start([Start]) --> Input[Receive Medicine List]
+        Input --> CheckPriority{User Priority?}
+        CheckPriority -- "Price" --> SortPrice[Sort by Price]
+        CheckPriority -- "Delivery" --> SortTime[Sort by Delivery Time]
+        SortPrice --> TieBreaker1{Same Price?}
+        TieBreaker1 -- Yes --> SelectFastest[Select Fastest Delivery]
+        TieBreaker1 -- No --> SelectCheapest[Select Cheapest]
+        SortTime --> TieBreaker2{Same Time?}
+        TieBreaker2 -- Yes --> SelectCheapest2[Select Cheapest]
+        TieBreaker2 -- No --> SelectFastest2[Select Fastest]
+        SelectCheapest --> Buy[Execute Purchase]
+        SelectFastest --> Buy
+        SelectCheapest2 --> Buy
+        SelectFastest2 --> Buy
 
 
 ## Future Roadmap (Round 2)
@@ -123,4 +123,7 @@ flowchart LR
 
 ### 3. Usage
     Visit http://localhost:8000/docs
+    ---------------------------------
     Upload a prescription and watch the bot work!
+
+# Team : Printf("winner");
