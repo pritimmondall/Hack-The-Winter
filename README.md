@@ -19,25 +19,25 @@
     6. Calendar Integration: If a follow-up date is detected, an event is automatically created in the user's Google Calendar.
 
 ### 2. System Architecture
-    ```mermaid
-    graph TD
-        User[User / Frontend] -->|Upload Prescription| API[FastAPI Backend]
-        API -->|Extract Text| OCR[EasyOCR Engine]
-        OCR -->|Raw Text| LLM[Google Gemini AI]
-        LLM -->|Structured JSON| Agent[Autonomous Bot Agent]
-        subgraph "Agentic Workflow"
-            Agent -->|Scrape Prices| SiteA[Pharmacy A]
-            Agent -->|Scrape Prices| SiteB[Pharmacy B]
-            Agent -->|Compare & Decide| Logic{Priority?}
-            Logic -->|Price/Time| Buy[Auto-Buy & Checkout]
-        end
-        LLM -->|Extract Dates| Calendar[Google Calendar API]
-        Buy -->|Order Confirmation| DB[(Database / Logs)]
-        Calendar -->|Create Event| GCal[User Calendar]
-
+```mermaid
+graph TD;
+    User[User / Frontend] -->|Upload Prescription| API[FastAPI Backend];
+    API -->|Extract Text| OCR[EasyOCR Engine];
+    OCR -->|Raw Text| LLM[Google Gemini AI];
+    LLM -->|Structured JSON| Agent[Autonomous Bot Agent];
+    subgraph "Agentic Workflow"
+        Agent -->|Scrape Prices| SiteA[Pharmacy A];
+        Agent -->|Scrape Prices| SiteB[Pharmacy B];
+        Agent -->|Compare & Decide| Logic{Priority?};
+        Logic -->|Price/Time| Buy[Auto-Buy & Checkout];
+    end
+    LLM -->|Extract Dates| Calendar[Google Calendar API];
+    Buy -->|Order Confirmation| DB[(Database / Logs)];
+    Calendar -->|Create Event| GCal[User Calendar];
+```
 
 ### 3. Data Flow Diagram
-
+```mermaid
     sequenceDiagram
         participant User
         participant Server as MCP Server (FastAPI)
@@ -60,10 +60,10 @@
         GCal-->>Server: Return Event Link
     end
     Server-->>User: Final Response (Order Status + Calendar Link)
-
+```
 
 ### 4. Agent Decision Logic
-
+```mermaid
     flowchart LR
         Start([Start]) --> Input[Receive Medicine List]
         Input --> CheckPriority{User Priority?}
@@ -79,7 +79,7 @@
         SelectFastest --> Buy
         SelectCheapest2 --> Buy
         SelectFastest2 --> Buy
-
+```
 
 ## Future Roadmap (Round 2)
 
@@ -102,28 +102,33 @@
 
 ### 1. Start Mock Pharmacy Sites
 
-    Terminal 1
-    --------------
-    cd mock-ecosystem/site-a
-    node server.js
+Terminal 1
+--------------
+*cd mock-ecosystem/site-a*
 
-    Terminal 2
-    --------------
-    cd mock-ecosystem/site-b
-    node server.js
+*node server.js*
+
+Terminal 2
+--------------
+*cd mock-ecosystem/site-b*
+
+*node server.js*
 
 ### 2. Start the Backend (MCP Brain)
 
-    Terminal 3
-    --------------
-    cd Backend
-    source venv/bin/activate
-    pip install -r requirements.txt
-    uvicorn main:app --reload
+Terminal 3
+--------------
+*cd Backend*
+
+*source venv/bin/activate*
+
+*pip install -r requirements.txt*
+
+*uvicorn main:app --reload*
 
 ### 3. Usage
-    Visit http://localhost:8000/docs
-    ---------------------------------
-    Upload a prescription and watch the bot work!
+Visit *http://localhost:8000/docs*
+---------------------------------
+Upload a prescription and watch the bot work!
 
 # Team : Printf("winner");
