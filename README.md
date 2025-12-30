@@ -1,6 +1,3 @@
-# Hack-The-Winter
-
-
 # 🏥 MedVision: Autonomous Prescription Orchestrator
 
 **MedVision** is an intelligent Model Context Protocol (MCP) server that automates the entire pharmacy workflow. It takes a doctor's prescription, digitizes it using AI, and uses autonomous agents to find the best medicine deals (optimizing for price or delivery speed) across multiple pharmacy vendors. It also schedules follow-up appointments automatically via Google Calendar.
