@@ -16,12 +16,11 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
 def find_labs_osm(lat, lng, test_names=[]):
     """
-    1. Fetches OSM Data.
-    2. Sorts by Distance to find the 'Nearest'.
-    3. Generates a 'Navigate to Best' Google Maps Link.
+    1. Fetches raw data from OSM (Nominatim).
+    2. Converts EVERYTHING into Google Maps Links.
     """
     
-    # --- PART 1: FETCH RAW DATA (Nominatim) ---
+    # --- PART 1: FETCH RAW DATA ---
     url = "https://nominatim.openstreetmap.org/search"
     osm_query = "hospital clinic medical"
     headers = { "User-Agent": "MedVision-Project/1.0" }
@@ -42,46 +41,56 @@ def find_labs_osm(lat, lng, test_names=[]):
         data = response.json()
         
         for place in data:
-            dist = calculate_distance(lat, lng, place.get("lat"), place.get("lon"))
+            p_lat = place.get("lat")
+            p_lon = place.get("lon")
+            name = place.get("display_name", "").split(",")[0]
+            
+            dist = calculate_distance(lat, lng, p_lat, p_lon)
+            
             # Filter: Must be within 15km
             if dist <= 15.0:
+                # GENERATE INDIVIDUAL GOOGLE MAPS LINK
+                # Format: search/?api=1&query={name}&query_place_id={lat},{lon}
+                encoded_name = name.replace(" ", "+")
+                gmaps_link = f"https://www.google.com/maps/search/?api=1&query={encoded_name}&query_place_id={p_lat},{p_lon}"
+                
                 labs_list.append({
-                    "name": place.get("display_name", "").split(",")[0],
+                    "name": name,
                     "full_address": place.get("display_name"),
-                    "lat": place.get("lat"),
-                    "lon": place.get("lon"),
+                    "lat": p_lat,
+                    "lon": p_lon,
                     "distance_km": dist,
-                    "type": place.get("type")
+                    "google_maps_link": gmaps_link # <--- Now Google, not OSM
                 })
         
-        # Sort by distance (Index 0 is now the Nearest/Best)
+        # Sort by distance (Index 0 is Nearest)
         labs_list.sort(key=lambda x: x["distance_km"])
 
     except Exception as e:
         print(f"[OSM] Data Fetch Error: {e}")
         labs_list = []
 
-    # --- PART 2: GENERATE LINKS ---
+    # --- PART 2: GENERATE MAIN ACTION LINKS (Standard Google Format) ---
     
-    # Link A: Visual Search (The "Explore" view)
+    # Logic: Pick the best search term
     tests_str = " ".join(test_names).lower()
     if "x-ray" in tests_str or "scan" in tests_str:
-        query_term = "Diagnostic+Centre"
+        query_term = "Diagnostic Centre"
     elif "blood" in tests_str:
-        query_term = "Pathology+Lab"
+        query_term = "Pathology Lab"
     else:
         query_term = "Hospital"
-        
-    encoded_query = f"{query_term} near {lat},{lng}".replace(" ", "+").replace(",", "%2C")
-    search_link = f"https://www.google.com/maps/search/{encoded_query}/@{lat},{lng},14z"
+    
+    # 1. SEARCH LINK (The "Explore" view)
+    # Format: https://www.google.com/maps/search/?api=1&query={term}+near+{lat},{lng}
+    encoded_query = f"{query_term} near {lat},{lng}".replace(" ", "+")
+    search_link = f"https://www.google.com/maps/search/?api=1&query={encoded_query}"
 
-    # Link B: NAVIGATION (The "Go Now" view)
-    # If we found at least one lab, we set the destination to the nearest one.
+    # 2. NAVIGATION LINK (The "Go Now" view)
     directions_link = ""
     if len(labs_list) > 0:
         best_lab = labs_list[0]
-        # Google Maps Direction Format: 
-        # https://www.google.com/maps/dir/?api=1&origin={lat},{lng}&destination={lat},{lng}
+        # Format: https://www.google.com/maps/dir/?api=1&origin={lat},{lng}&destination={lat},{lng}&travelmode=driving
         directions_link = (
             f"https://www.google.com/maps/dir/?api=1"
             f"&origin={lat},{lng}"
@@ -91,6 +100,6 @@ def find_labs_osm(lat, lng, test_names=[]):
 
     return {
         "labs": labs_list[:5],        
-        "map_search_link": search_link,    # View Area
-        "map_directions_link": directions_link # Navigate to Nearest
+        "map_search_link": search_link,
+        "map_directions_link": directions_link
     }
