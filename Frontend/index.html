@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedVision AI Agent</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-robot"></i> MedVision AI</h1>
+            <p>Upload a prescription to automate purchase & scheduling</p>
+        </header>
+
+        <div class="upload-card">
+            <form id="uploadForm">
+                <div class="file-drop-area" id="dropArea">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Click or Drag Prescription Image Here</p>
+                    <input type="file" id="fileInput" accept="image/*" required>
+                    <p id="fileName" class="file-name"></p>
+                </div>
+
+                <div class="options">
+                    <label>Priority:</label>
+                    <select id="priority">
+                        <option value="price">💰 Lowest Price</option>
+                        <option value="delivery">🚀 Fastest Delivery</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    Launch Agent <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>🤖 AI is analyzing... (Check Terminal for Map Prompt!)</p>
+        </div>
+
+        <div id="results" class="hidden">
+            
+            <div id="calendarCard" class="result-card hidden">
+                <h3><i class="fa-regular fa-calendar-check"></i> Calendar Event</h3>
+                <p>Follow-up scheduled!</p>
+                <a id="calendarLink" href="#" target="_blank" class="btn-link">View in Google Calendar</a>
+            </div>
+
+            <div id="guideCard" class="result-card hidden" style="border-left: 5px solid #8b5cf6;">
+                <h3><i class="fa-solid fa-user-doctor"></i> Medicine Guide</h3>
+                <p style="color: #6b7280; font-size: 0.9em;">Personalized intake instructions for you:</p>
+                <div id="guideContent">
+                    </div>
+            </div>
+
+            <div class="result-card">
+                <h3><i class="fa-solid fa-capsules"></i> Agent Shopping Report</h3>
+                <div id="reportContent"></div>
+            </div>
+
+            <button id="toggleRaw" class="btn-secondary">Show Raw AI Data</button>
+            <pre id="rawData" class="hidden"></pre>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
