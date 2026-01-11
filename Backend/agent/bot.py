@@ -105,5 +105,28 @@ class PharmaAgent:
             
         return results
 
+    def open_map_link(self, map_url):
+        """
+        Opens the provided Google Maps link in a new browser tab.
+        """
+        try:
+            print(f"[AGENT] Opening Map Location: {map_url}")
+            
+            # Open new tab
+            self.driver.execute_script("window.open('');")
+            
+            # Switch to the new tab (it's usually the last handle)
+            self.driver.switch_to.window(self.driver.window_handles[-1])
+            
+            # Load the Map
+            self.driver.get(map_url)
+            time.sleep(3) # Let it load so the user sees it
+            
+            # Optional: Switch back to the main tab if you want to continue shopping
+            # self.driver.switch_to.window(self.driver.window_handles[0])
+            
+        except Exception as e:
+            print(f"[AGENT] Failed to open map: {e}")
+
     def close(self):
         self.driver.quit()
